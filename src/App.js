@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.scss";
+import queryString from "query-string";
+import Pagination from "./components/Pagination";
 // import ColorBox from "./components/ColorBox";
 // import TodoForm from "./components/TodoForm";
 // import TodoList from "./components/TodoList";
@@ -33,24 +35,60 @@ function App() {
   //   setTodoList(newTodoList);
   // }
   const [postList, setPostList] = useState([]);
+  const [pagination, setPagination] = useState({
+    _page: 1,
+    _limit: 10,
+    _totalRows: 11,
+  });
+
+  const [filters, setFilters] = useState({
+    _limit: 10,
+    _page: 1,
+  });
   //empty lay du lieu 1 lan
+  // useEffect(() => {
+  //   async function fetchPostList() {
+  //     // side effect lay du lieu
+
+  //     try {
+  //       const requestUrl =
+  //         "http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1";
+  //       const response = await fetch(requestUrl);
+  //       const responseJSON = await response.json();
+  //       const { data } = responseJSON;
+  //       setPostList(data);
+  //     } catch (error) {
+  //       console.log("Failed to fetch post list: ", error.message);
+  //     }
+  //   }
+  //   fetchPostList();
+  // }, []);
+  //
   useEffect(() => {
     async function fetchPostList() {
       // side effect lay du lieu
 
       try {
-        const requestUrl =
-          "http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1";
+        const paramsString = queryString.stringify(filters);
+        const requestUrl = `http://js-post-api.herokuapp.com/api/posts?${paramsString}`;
         const response = await fetch(requestUrl);
         const responseJSON = await response.json();
-        const { data } = responseJSON;
+        const { data, pagination } = responseJSON;
+        setPagination(pagination);
         setPostList(data);
       } catch (error) {
         console.log("Failed to fetch post list: ", error.message);
       }
     }
     fetchPostList();
-  }, []);
+  }, [filters]);
+  function handlePageChange(newPage) {
+    console.log("page: ", newPage);
+    setFilters({
+      ...filters,
+      _page: newPage,
+    });
+  }
   return (
     <div className="app">
       <h1>Welcome to React-hooks</h1>
@@ -61,6 +99,7 @@ function App() {
      onTodoClick ={handleTodoClick}
      /> */}
       <PostList posts={postList} />
+      <Pagination pagination={pagination} onPageChange={handlePageChange} />
     </div>
   );
 }
