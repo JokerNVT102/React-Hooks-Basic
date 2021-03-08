@@ -6,6 +6,7 @@ import Pagination from "./components/Pagination";
 // import TodoForm from "./components/TodoForm";
 // import TodoList from "./components/TodoList";
 import PostList from "./components/PostList";
+import Search from "./components/Search";
 
 function App() {
   // const [todoList, setTodoList] = useState([
@@ -89,6 +90,14 @@ function App() {
       _page: newPage,
     });
   }
+  function handleFiltersChange(newFilters) {
+    console.log("ok: ", newFilters);
+    setFilters({
+      ...filters,
+      _page: 1,
+      title_like: newFilters.searchTerm,
+    });
+  }
   return (
     <div className="app">
       <h1>Welcome to React-hooks</h1>
@@ -98,6 +107,7 @@ function App() {
      todos ={todoList}
      onTodoClick ={handleTodoClick}
      /> */}
+      <Search onSubmit={handleFiltersChange} />
       <PostList posts={postList} />
       <Pagination pagination={pagination} onPageChange={handlePageChange} />
     </div>
