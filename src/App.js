@@ -10,6 +10,7 @@ import BetterClock from "./components/BetterClock";
 // import PostList from "./components/PostList";
 // import Search from "./components/Search";
 import Clock from "./components/Clock";
+import MagicBox from "./components/MagicBox";
 
 function App() {
   // const [todoList, setTodoList] = useState([
@@ -105,7 +106,7 @@ function App() {
   return (
     <div className="app">
       <h1>Welcome to Clock</h1>
-      {showClock && <Clock />}
+      {/* {showClock && <Clock />}
       <BetterClock />
       <button
         onClick={() => {
@@ -113,7 +114,8 @@ function App() {
         }}
       >
         hide clock
-      </button>
+      </button> */}
+      <MagicBox/>
       {/* <ColorBox/> */}
       {/* <TodoForm onSubmit = {handleTodoFormSubmit}/>
      <TodoList 
