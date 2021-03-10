@@ -1,5 +1,7 @@
 // import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.scss";
+import BetterClock from "./components/BetterClock";
 // import queryString from "query-string";
 // import Pagination from "./components/Pagination";
 // import ColorBox from "./components/ColorBox";
@@ -99,10 +101,19 @@ function App() {
   //     title_like: newFilters.searchTerm,
   //   });
   // }
+  const [showClock, setShowClock] = useState(true);
   return (
     <div className="app">
       <h1>Welcome to Clock</h1>
-      <Clock />
+      {showClock && <Clock />}
+      <BetterClock />
+      <button
+        onClick={() => {
+          setShowClock(false);
+        }}
+      >
+        hide clock
+      </button>
       {/* <ColorBox/> */}
       {/* <TodoForm onSubmit = {handleTodoFormSubmit}/>
      <TodoList 
