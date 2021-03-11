@@ -1,11 +1,11 @@
 // import { useEffect, useState } from "react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import "./App.scss";
 import Hero from "./components/Hero";
 
 function App() {
   const [count, setCount] = useState(0);
-  const handleHeroClick = () => {};
+  const handleHeroClick = useCallback(() => {}, []);
   return (
     <div className="app">
       <h1>Welcome to Clock</h1>
